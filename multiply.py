@@ -1,24 +1,14 @@
 #!/usr/bin/env python
 from sys import argv
 
-def split_at_middle(num, middle):
-    if (len(str(num)) > middle):
-        return int(str(num)[:middle]), int(str(num)[middle:])
-    else:
-        return 0, num
-
 def karatsuba(num1, num2):
     if num1 < 10 or num2 < 10:
         return num1 * num2
-    maxLen = max(len(str(num1)), len(str(num2)))
-    if maxLen % 2:
-        middle = maxLen / 2 + 1
-    else:
-        middle = maxLen / 2
-    print middle
-    high1, low1 = split_at_middle(num1, middle)
-    high2, low2 = split_at_middle(num2, middle)
-    print str(high1) + " " + str(low1) + "   " + str(high2) + " " + str(low2)
+    middle = max(len(str(num1)), len(str(num2))) / 2
+    high1 = num1 / 10 ** middle
+    low1 = num1 % 10 ** middle
+    high2 = num2 / 10 ** middle
+    low2 = num2 % 10 ** middle
     res0 = karatsuba(low1, low2)
     res1 = karatsuba(low1 + high1, low2 + high2)
     res2 = karatsuba(high1, high2)
